@@ -1,0 +1,22 @@
+@startuml
+' Диаграмма последовательности для процесса бронирования авиабилета
+
+actor Пользователь as User
+participant Рейс as Flight
+participant Пассажир as Passenger
+
+User -> Flight: book_ticket() ' Пользователь инициирует бронирование
+Flight -> Passenger: Создать нового пассажира ' Создаётся запись о пассажире
+Passenger -> Passenger: Сохранить данные пассажира (имя, ID, телефон)
+User -> Flight: Показать доступные места
+Flight -> User: Список доступных мест
+User -> Flight: Выбрать место
+Flight -> Passenger: Назначить место пассажиру
+
+User -> Flight: Выбрать предпочтение по еде
+Flight -> Passenger: Обновить информацию о еде
+
+Flight -> Passenger: Генерация номера бронирования
+Passenger -> Passenger: Сохранить номер бронирования
+Flight -> User: Вернуть номер бронирования
+@enduml

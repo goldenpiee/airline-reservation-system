@@ -1,0 +1,23 @@
+@startuml
+' Диаграмма классов для системы бронирования авиабилетов
+
+class Flight {
+    +book_ticket(): void  ' Забронировать билет
+    +cancel_ticket(): void  ' Отменить бронирование
+    +change_reservation(): void  ' Изменить бронирование
+    +passenger_details(): void  ' Показать информацию о пассажире
+    +get_booking_details(): void  ' Показать все бронирования
+}
+
+class Passenger {
+    +fname: string  ' Имя
+    +lname: string  ' Фамилия
+    +ID: string  ' Уникальный идентификатор
+    +phone_number: string  ' Номер телефона
+    +food_menu: string  ' Выбранное меню
+    +seat_number: int  ' Номер места
+    +reservation_number: int  ' Номер бронирования
+}
+
+Flight -- Passenger : "содержит"  ' Связь между рейсами и пассажирами
+@enduml
