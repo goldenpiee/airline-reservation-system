@@ -1,0 +1,14 @@
+# INSTALL
+
+Instructions to install the Airline Reservation System
+
+1. Configure the project:
+   ./configure
+
+2. Build the project:
+   make
+
+3. Install the project:
+   sudo make install
+
+For more information, refer to the README file.
