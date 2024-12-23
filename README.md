@@ -110,10 +110,10 @@ make docs
 Для запуска тестов выполните:
 
 ```bash
-make test
+make check
 ```
 
-Пример вывода тестов сохраняется в `test_output.txt`.
+Пример вывода тестов сохраняется в `test_log.txt`.
 
 ---
 
@@ -123,10 +123,12 @@ make test
 airline_reservation/
 ├── src/                # Исходные файлы C++
 │   └── main.cpp        # Основная логика программы
+│   └── Flight.cpp
 ├── include/            # Заголовочные файлы
+│   └── Flight.h       
 ├── docs/               # Генерация документации (HTML и LaTeX)
 ├── tests/              # Скрипты для тестирования
-│   └── test_script.sh  # Тесты для программы
+│   └── test_flight.cpp # Тесты для программы
 ├── Makefile.am         # Настройки сборки проекта
 ├── configure.ac        # Конфигурация Autotools
 └── Doxyfile            # Конфигурация для Doxygen
