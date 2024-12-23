@@ -83,7 +83,7 @@
 | `make install`   | Установка программы в `/usr/local/bin`.                 |
 | `make uninstall` | Удаление программы из `/usr/local/bin`.                 |
 | `make docs`      | Генерация документации (HTML и LaTeX).                  |
-| `make test`      | Запуск тестов.                                          |
+| `make check`     | Запуск тестов.                                          |
 | `make clean`     | Очистка временных файлов.                               |
 | `make distclean` | Полная очистка проекта, включая сгенерированные файлы.  |
 | `make dist`      | Создание архива проекта (`airline_reservation.tar.gz`). |
