@@ -7,38 +7,39 @@ using namespace std;
 
 const int total_number_of_seats = 100; // Общее количество мест в самолете
 vector<int> seats(total_number_of_seats, 0); // Массив статусов мест: 0 - свободно, -1 - занято
+
 /**
  * @brief Класс для управления авиабилетами и бронированиями.
  */
 class Flight {
 public:
- /**
-     * @brief Конструктор по умолчанию.
-     */
-    Flight() : start(nullptr) {}
     /**
      * @brief Забронировать билет.
      */
     void book_ticket();
-      /**
+
+    /**
      * @brief Отменить бронирование билета.
      */
     void cancel_ticket();
-     /**
+
+    /**
      * @brief Изменить место в бронировании.
      */
-    void change_reservation();  
-       /**
+    void change_reservation();
+
+    /**
      * @brief Показать детали пассажира.
      */
     void passenger_details();
+
     /**
      * @brief Показать все бронирования.
      */
     void get_booking_details();
 
 private:
- /**
+    /**
      * @brief Структура для хранения информации о пассажире.
      */
     struct Passenger {
@@ -56,11 +57,11 @@ private:
     int reserve_seats = 1000; ///< Текущий номер бронирования
     int cancel_tickets = 0; ///< Количество отмененных билетов
 
-     /**
+    /**
      * @brief Показать доступные места в самолете.
      */
-    void display_available_seats();
-} flight;
+    static void display_available_seats();
+};
 
 void Flight::display_available_seats() {
     cout << "Available seats:\n";
@@ -98,8 +99,7 @@ void Flight::book_ticket() {
         }
     } while (true);
 
-    cout << "Choose your food preference:\n";
-    cout << "1. Veg\n2. Non-Veg\n3. No Food\nYour choice: ";
+    cout << "Choose your food preference:\n1. Veg\n2. Non-Veg\n3. No Food\nYour choice: ";
     int choice;
     cin >> choice;
     new_passenger->food_menu = (choice == 1) ? "Veg" : (choice == 2) ? "Non-Veg" : "No Food";
@@ -108,13 +108,13 @@ void Flight::book_ticket() {
     cout << "Your reservation number is: " << new_passenger->reservation_number << endl;
 
     if (!start) {
-        start = move(new_passenger);
+        start = std::move(new_passenger);
     } else {
         Passenger* temp = start.get();
         while (temp->next) {
             temp = temp->next.get();
         }
-        temp->next = move(new_passenger);
+        temp->next = std::move(new_passenger);
     }
 }
 
@@ -129,9 +129,9 @@ void Flight::cancel_ticket() {
     while (current) {
         if (current->reservation_number == reservation_number) {
             if (!prev) {
-                start = move(current->next);
+                start = std::move(current->next);
             } else {
-                prev->next = move(current->next);
+                prev->next = std::move(current->next);
             }
             seats[current->seat_number - 1] = 0;
             ++cancel_tickets;
@@ -150,7 +150,7 @@ void Flight::change_reservation() {
     cout << "Enter your current seat number: ";
     cin >> current_seat;
 
-    if (seats[current_seat - 1] != -1) {
+    if (current_seat < 1 || current_seat > total_number_of_seats || seats[current_seat - 1] != -1) {
         cout << "The seat is not reserved.\n";
         return;
     }
@@ -191,6 +191,11 @@ void Flight::passenger_details() {
 }
 
 void Flight::get_booking_details() {
+    if (!start) {
+        cout << "No passengers found.\n";
+        return;
+    }
+
     Passenger* current = start.get();
     cout << setw(15) << "Reservation" << setw(15) << "First Name" << setw(15) << "Last Name"
          << setw(10) << "Seat" << setw(15) << "Food" << endl;
@@ -204,6 +209,11 @@ void Flight::get_booking_details() {
         current = current->next.get();
     }
 }
+
+/**
+ * @brief Глобальный объект Flight.
+ */
+Flight flight;
 
 /**
  * @brief Функция для отображения главного меню.
